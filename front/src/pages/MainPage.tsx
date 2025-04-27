@@ -48,7 +48,7 @@ const MainPage: FC = () => {
       time_to_do: state.user.time_to_do
     };
     try {
-      const response = await fetch('http://localhost:3000/api/task/', {
+      const response = await fetch('http://localhost:3001/api/task/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

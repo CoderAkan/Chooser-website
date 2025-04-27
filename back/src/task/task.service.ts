@@ -9,7 +9,7 @@ export class TaskService {
   async callGemini(prompt: string): Promise<any> {
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="AIzaSyBVWbNzGx5sJ7x6CVYMFNEMEK6uDYyEajU"`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${this.configService.get("GEMINI_API_KEY")}`,
         {
           method: 'POST',
           headers: {
@@ -43,6 +43,7 @@ export class TaskService {
   async create(createTaskDto: CreateTaskDto): Promise<{ title: string; description: string } | { error: string; details: string }> {
     const { difficulty_level, time_to_do } = createTaskDto;
     let prompt = '';
+    console.log("IPHONE")
 
     if (difficulty_level === 1) {
       prompt = `Can you create a random simple punishment task for a friend that could be done in less than ${time_to_do} minutes, like doing 10 push-ups or posting an Instagram story where he shows his physique or asks for simple something from a stranger or recite the alphabet backward or tell a bad joke to 3 people or does something very interesting, but easy. Give me response in this form: title and then description. Give only one task. Title should be less than 15 symbols, while description should be less than 50 symbols.`;
@@ -51,8 +52,6 @@ export class TaskService {
     } else {
       prompt = `Can you create a random hard punishment task for a friend that could be done in less than ${time_to_do} minutes, like something very strange or very peculiar that most people won't even dare to do, like a taking a cold shower or asking a stranger to go on a date or cut/shave a part of their head or find and eat a spoonful of a very spicy food or perform a street performance for an hour to earn a small amount of money . Give me response in this form: title and then description. Give only one task. Title should be less than 15 symbols, while description should be less than 50 symbols.`;
     }
-
-    console.log(prompt);
 
     try {
       const data = await this.callGemini(prompt);

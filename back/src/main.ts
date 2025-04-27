@@ -13,7 +13,7 @@ async function bootstrap() {
   });
   
   // Use PORT from environment variable (Vercel will provide this)
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3001;
   
   await app.listen(port);
   console.log(`Application is running on: ${port}`);
