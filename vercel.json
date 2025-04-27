@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "projects": {
+      "front": {
+        "type": "npm",
+        "rootDirectory": "front",
+        "framework": "create-react-app", 
+        "buildCommand": "npm run build",
+        "outputDirectory": "build" 
+      },
+      "back": {
+        "type": "node",
+        "entrypoint": "back/src/main.ts", 
+        "buildCommand": "cd server && npm install && npm run build", 
+        "environment": {
+          "NODE_ENV": "production" 
+        }
+      }
+    },
+    "routes": [
+      {
+        "src": "/api/(.*)", 
+        "dest": "front"
+      },
+      {
+        "src": "/(.*)",      
+        "dest": "back"
+      }
+    ]
+  }
